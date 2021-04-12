@@ -647,6 +647,8 @@ void recv_main_parser(void)
 
 		sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x\n", uRecvLength, stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter);
 		PrintLog(logdata);
+		sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x %x\n", uRecvLength, &bRecvMainBuffer[4],&bRecvMainBuffer[5],&bRecvMainBuffer[6],&bRecvMainBuffer[7] );
+		PrintLog(logdata);
 
 		stTruckBedConfig.xRadiusPositive = (U32)bRecvMainBuffer[7] | (U32)bRecvMainBuffer[6]<<8 | (U32)bRecvMainBuffer[5]<<16 | (U32)bRecvMainBuffer[4]<<24;
 		stTruckBedConfig.xRadiusNegative = (U32)bRecvMainBuffer[11] | (U32)bRecvMainBuffer[10]<<8 | (U32)bRecvMainBuffer[9]<<16 | (U32)bRecvMainBuffer[8]<<24;
