@@ -32,6 +32,7 @@
 #define	_CMD_MAIN_LED_CONFIG_CYCLE			0x0508
 #define	_CMD_MAIN_LED_CONFIG_COLOR			0x0509
 #define	_CMD_MAIN_LED_LIVESTREAM			0x05A6
+#define	_CMD_MAIN_TRUCK_CALIBRATION			0x0533
 
 #define	_CMD_MAIN_ARMED_CONFIG				0x0701
 
@@ -65,7 +66,7 @@ typedef  struct
 
 struct LINGER
 {
-     int l_onoff;                        // linger ¿É¼Ç ¼³Á¤(l_onoff = 1), ÇØÁ¦(l_onoff=0)
+     int l_onoff;                        // linger ï¿½É¼ï¿½ ï¿½ï¿½ï¿½ï¿½(l_onoff = 1), ï¿½ï¿½ï¿½ï¿½(l_onoff=0)
      int l_linger;                       // linger timeout
 };
 
