@@ -44,6 +44,7 @@ U08 bRadarResponse = RADAR_STATUS_NONE;
 
 RADAR_CONFIG stRadarConfig;
 MAIN_LED_CONFIG stMainLEDConfig;
+TRUCK_BED_CONFIG stTruckBedConfig;
 
 
 U08 bUpdateDevice;

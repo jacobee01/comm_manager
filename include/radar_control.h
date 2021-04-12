@@ -130,6 +130,15 @@ typedef struct
 	U08 bBlue;
 } MAIN_LED_CONFIG;
 
+typedef struct 
+{
+	U32 xRadiusPositive;
+	U32 xRadiusNegative;
+	U32 yDiamter;
+	
+} TRUCK_BED_CONFIG;
+
+
 
 /* global variables */
 extern U32 wRadarResponseTimer;
@@ -142,6 +151,7 @@ extern U08 bRadarResponse;
 
 extern RADAR_CONFIG stRadarConfig;
 extern MAIN_LED_CONFIG stMainLEDConfig;
+extern TRUCK_BED_CONFIG stTruckBedConfig;
 
 
 extern U08 bUpdateDevice;

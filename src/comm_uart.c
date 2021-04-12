@@ -28,6 +28,8 @@
 #include "socket_diagnosis.h"
 #include "socket_main.h"
 
+#include "radar_control.h"
+
 /* define */
 
 
@@ -45,6 +47,7 @@ U08 bReceiveBuffer[COMM_BUFF_MAX];
 U08 arReceivePacket[MAX_RCV_ARRAY][COMM_BUFF_MAX];
 
 U08 arbSendMainBuf[COMM_BUFF_MAX];
+U08 truck_bed_config[32];
 
 
 /* local variables */
@@ -536,7 +539,7 @@ void Radar_Command_Processing(U08 *pucRecievBuf, U08 *pucSendBuf, U16 *uSendLeng
 		wRadarStatusTimer = 0;
 		break;
 
-	case MMIC_CLI_RECV_RES :		// 0x01		// RESPONSE
+	case MMIC_CLI_RECV_RES :		// 0x03		// RESPONSE
 		memset ( &arbSendMainBuf, 0, sizeof(arbSendMainBuf) );
 		memcpy(	&arbSendMainBuf[0], &pucRecievBuf[10], uDataFieldLength-4);
 		sprintf(logdata, "%sMMIC_CLI_RECV_RES (Length = %d) : %s\n", logdata, uDataFieldLength, arbSendMainBuf);
@@ -546,6 +549,18 @@ void Radar_Command_Processing(U08 *pucRecievBuf, U08 *pucSendBuf, U16 *uSendLeng
 		PrintLog(logdata);
 		send_put_main( _CMD_MAIN_MMIC_CLI, (uDataFieldLength-4), &arbSendMainBuf[0], 0);
 		break;
+
+	case SET_TRUCK_BED_CONFIG_RES :		// 0x33 	// RESPONSE
+
+		memcpy(&truck_bed_config, &pucRecievBuf[10], 12 );
+		stTruckBedConfig.xRadiusPositive = (U32)truck_bed_config[3] | (U32)truck_bed_config[2]<<8 | (U32)truck_bed_config[1]<<16 | (U32)truck_bed_config[0]<<24;
+		stTruckBedConfig.xRadiusNegative = (U32)truck_bed_config[7] | (U32)truck_bed_config[6]<<8 | (U32)truck_bed_config[5]<<16 | (U32)truck_bed_config[4]<<24;
+		stTruckBedConfig.yDiamter = (U32)truck_bed_config[11] | (U32)truck_bed_config[10]<<8 | (U32)truck_bed_config[9]<<16 | (U32)truck_bed_config[8]<<24;
+
+		sprintf(logdata, "[Main][Send] Truck bed Response : %x %x %x \n", stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter );
+		PrintLog(logdata);
+		break;
+
 
 	default:
 		break;
