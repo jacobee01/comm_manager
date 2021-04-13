@@ -39,6 +39,7 @@
 #define	_CMD_MAIN_COMM_VERSION				0x0590
 
 #define	_CMD_MAIN_SLEEP_EVENT				0x0530
+#define	_CMD_MAIN_SLEEP_ACK					0x0531
 
 /* send command */
 #define	_CMD_MAIN_RADAR_THREAT				0x0502

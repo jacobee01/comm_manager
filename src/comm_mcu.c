@@ -72,20 +72,20 @@ TOF comm_mcu_connect(void)
 				wCommMcuAccessTime = GetTimeTick10ms();
 				uartfd = open( "/dev/ttyHS1", O_RDWR | O_NOCTTY | O_NONBLOCK );
 
-				// /dev/ttyS0¸¦ »ç¿ëÇÏ±â À§ÇØ open()ÇÔ¼ö¸¦ »ç¿ëÇÕ´Ï´Ù.
-				// O_RDWRÀº ÆÄÀÏ µð½ºÅ©¸³ÅÍÀÎ fd¸¦ ÀÐ±â¿Í ¾²±â ¸ðµå·Î ¿­±â À§ÇÑ ÁöÁ¤ÀÌ¸ç
-				// O_NOCCTY¿Í O_NONBLOCK´Â ½Ã¸®¾ó Åë½Å ÀåÄ¡¿¡ ¸ÂÃß¾î Ãß°¡Çß½À´Ï´Ù.
+				// /dev/ttyS0ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ open()ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+				// O_RDWRï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ fdï¿½ï¿½ ï¿½Ð±ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+				// O_NOCCTYï¿½ï¿½ O_NONBLOCKï¿½ï¿½ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾ï¿½ ï¿½ß°ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.
 
 				memset( &newtio, 0, sizeof(newtio) );
 
-				// ½Ã¸®¾ó Åë½ÅÈ¯°æ ¼³Á¤À» À§ÇÑ ±¸Á¶Ã¼ º¯¼ö newtio °ªÀ» 0 ¹ÙÀÌÆ®·Î ±ú²ýÀÌ Ã¤¿ó´Ï´Ù. 
+				// ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ newtio ï¿½ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¤ï¿½ï¿½Ï´ï¿½. 
 
-				newtio.c_cflag = B460800;   // Åë½Å ¼Óµµ 460800
-	//			newtio.c_cflag = B115200;   // Åë½Å ¼Óµµ 460800
-				newtio.c_cflag |= CS8;      // µ¥ÀÌÅÍ ºñÆ®°¡ 8bit 
-				newtio.c_cflag |= CLOCAL;   // ¿ÜºÎ ¸ðµ©À» »ç¿ëÇÏÁö ¾Ê°í ³»ºÎ Åë½Å Æ÷Æ® »ç¿ë 
-				newtio.c_cflag |= CREAD;    // ¾²±â´Â ±âº», ÀÐ±âµµ °¡´ÉÇÏ°Ô 
-				newtio.c_iflag = 0;         // parity ºñÆ®´Â ¾øÀ½
+				newtio.c_cflag = B460800;   // ï¿½ï¿½ï¿½ ï¿½Óµï¿½ 460800
+	//			newtio.c_cflag = B115200;   // ï¿½ï¿½ï¿½ ï¿½Óµï¿½ 460800
+				newtio.c_cflag |= CS8;      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ 8bit 
+				newtio.c_cflag |= CLOCAL;   // ï¿½Üºï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ 
+				newtio.c_cflag |= CREAD;    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº», ï¿½Ð±âµµ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ 
+				newtio.c_iflag = 0;         // parity ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				newtio.c_oflag = 0;
 				newtio.c_lflag = 0;
 				newtio.c_cc[VTIME] = 0; 
@@ -94,7 +94,7 @@ TOF comm_mcu_connect(void)
 				UART_Init();
 
 				tcflush (uartfd, TCIFLUSH );
-				if ( tcsetattr(uartfd, TCSANOW, &newtio ) != 0 )   // Æ÷Æ®¿¡ ´ëÇÑ Åë½Å È¯°æÀ» ¼³Á¤ÇÕ´Ï´Ù. 
+				if ( tcsetattr(uartfd, TCSANOW, &newtio ) != 0 )   // ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½. 
 				{
 					PrintLog("[Radar][Connect] radar communication error\n");
 					return FALSE;
@@ -136,8 +136,9 @@ TOF comm_mcu_connect(void)
 }
 
 
-void comm_mcu_disconnect(void)
+int comm_mcu_disconnect(void)
 {
+	int rt = 0;
 	comm_mcu_run = FALSE;
 
 	PrintLog("[Radar][Connect] radar communication closed\n");
@@ -145,10 +146,11 @@ void comm_mcu_disconnect(void)
 	if ( uartfd > 0 )
 	{
 //	PrintLog("[Radar][disconnect] uart closed start\n");
-		close(uartfd);
+		rt = close(uartfd);
 //	PrintLog("[Radar][disconnect] uart closed end\n");
 	}
 	uartfd = -1;
+	return rt;
 }
 
 

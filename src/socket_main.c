@@ -261,6 +261,7 @@ void recv_main_parser(void)
 	char logdata[MAX_BUF];
 
 	int i;
+	int rt = 0;
 
 	memcpy ( &uRecvCommand, &bRecvMainBuffer[0], 2);
 	memcpy ( &uRecvLength, &bRecvMainBuffer[2], 2);
@@ -620,11 +621,26 @@ void recv_main_parser(void)
 		{
 			tSleepMode = TRUE;
 			radar_status_init();
-			comm_mcu_disconnect();
+			rt = comm_mcu_disconnect();
+			if(rt == -1)
+			{
+				sprintf(logdata, "[Main][Send] Sleep ACK  : 0x01 Failure\n");
+				PrintLog(logdata);
+				send_put_main( _CMD_MAIN_SLEEP_ACK, 1, 1, 0);
+			}
+			else
+			{
+				sprintf(logdata, "[Main][Send] Sleep ACK  : 0x00 Success\n");
+				PrintLog(logdata);
+				send_put_main( _CMD_MAIN_SLEEP_ACK, 1, 0, 0);
+			}
 		}
 		else
 		{
 			tSleepMode = FALSE;
+			sprintf(logdata, "[Main][Send] Wake up ACK  : 0x00 Success\n");
+			PrintLog(logdata);
+			send_put_main( _CMD_MAIN_SLEEP_ACK, 1, 0, 0);
 		}
 
 		break;

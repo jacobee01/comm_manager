@@ -33,7 +33,7 @@ extern TOF tSleepMode;
 
 /* global functions */
 extern TOF comm_mcu_connect(void);
-extern void comm_mcu_disconnect(void);
+extern int comm_mcu_disconnect(void);
 
 
 #endif /* _COMM_MCU_H */
