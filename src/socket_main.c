@@ -651,12 +651,16 @@ void recv_main_parser(void)
 		memcpy(&stTruckBedConfig.xRadiusNegative, &bRecvMainBuffer[8], 4);
 		memcpy(&stTruckBedConfig.yDiamter, &bRecvMainBuffer[12], 4);
 
+		sprintf(logdata, "[Main][[Receive] Truck Bed Calibration memcpy (Length = %d) : %x %x %x\n", uRecvLength, stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter);
+		PrintLog(logdata);
+
+		stTruckBedConfig.xRadiusPositive = (U32)bRecvMainBuffer[7] | (U32)bRecvMainBuffer[6]<<8 | (U32)bRecvMainBuffer[5]<<16 | (U32)bRecvMainBuffer[4]<<24;
+		stTruckBedConfig.xRadiusNegative = (U32)bRecvMainBuffer[11] | (U32)bRecvMainBuffer[10]<<8 | (U32)bRecvMainBuffer[9]<<16 | (U32)bRecvMainBuffer[8]<<24;
+		stTruckBedConfig.yDiamter = (U32)bRecvMainBuffer[15] | (U32)bRecvMainBuffer[14]<<8 | (U32)bRecvMainBuffer[13]<<16 | (U32)bRecvMainBuffer[12]<<24;
+
 		sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x\n", uRecvLength, stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter);
 		PrintLog(logdata);
 
-		// stTruckBedConfig.xRadiusPositive = (U32)bRecvMainBuffer[7] | (U32)bRecvMainBuffer[6]<<8 | (U32)bRecvMainBuffer[5]<<16 | (U32)bRecvMainBuffer[4]<<24;
-		// stTruckBedConfig.xRadiusNegative = (U32)bRecvMainBuffer[11] | (U32)bRecvMainBuffer[10]<<8 | (U32)bRecvMainBuffer[9]<<16 | (U32)bRecvMainBuffer[8]<<24;
-		// stTruckBedConfig.yDiamter = (U32)bRecvMainBuffer[15] | (U32)bRecvMainBuffer[14]<<8 | (U32)bRecvMainBuffer[13]<<16 | (U32)bRecvMainBuffer[12]<<24;
 		// sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x\n", uRecvLength, stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter);
 		// PrintLog(logdata);
 
