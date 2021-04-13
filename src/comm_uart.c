@@ -553,6 +553,9 @@ void Radar_Command_Processing(U08 *pucRecievBuf, U08 *pucSendBuf, U16 *uSendLeng
 	case SET_TRUCK_BED_CONFIG_RES :		// 0x33 	// RESPONSE
 
 		memcpy(&truck_bed_config, &pucRecievBuf[10], 12 );
+		sprintf(logdata, "[Main][Send] Truck bed Response : %x %x %x \n", stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter );
+		PrintLog(logdata);
+		
 		stTruckBedConfig.xRadiusPositive = (U32)truck_bed_config[3] | (U32)truck_bed_config[2]<<8 | (U32)truck_bed_config[1]<<16 | (U32)truck_bed_config[0]<<24;
 		stTruckBedConfig.xRadiusNegative = (U32)truck_bed_config[7] | (U32)truck_bed_config[6]<<8 | (U32)truck_bed_config[5]<<16 | (U32)truck_bed_config[4]<<24;
 		stTruckBedConfig.yDiamter = (U32)truck_bed_config[11] | (U32)truck_bed_config[10]<<8 | (U32)truck_bed_config[9]<<16 | (U32)truck_bed_config[8]<<24;

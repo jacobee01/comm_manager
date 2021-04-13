@@ -641,20 +641,24 @@ void recv_main_parser(void)
 
 	case _CMD_MAIN_TRUCK_CALIBRATION :		// 0x0533
 
+		// memcpy(&stTruckBedConfig.xRadiusPositive, &bRecvMainBuffer[4], 4);
+		// memcpy(&stTruckBedConfig.xRadiusNegative, &bRecvMainBuffer[8], 4);
+		// memcpy(&stTruckBedConfig.yDiamter, &bRecvMainBuffer[12], 4);
+		sprintf(logdata, "[Main][[Receive] main send (Length = %d) : %x %x %x %x\n", uRecvLength, bRecvMainBuffer[4],bRecvMainBuffer[5],bRecvMainBuffer[6],bRecvMainBuffer[7] );
+		PrintLog(logdata);
+
 		memcpy(&stTruckBedConfig.xRadiusPositive, &bRecvMainBuffer[4], 4);
 		memcpy(&stTruckBedConfig.xRadiusNegative, &bRecvMainBuffer[8], 4);
 		memcpy(&stTruckBedConfig.yDiamter, &bRecvMainBuffer[12], 4);
 
 		sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x\n", uRecvLength, stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter);
 		PrintLog(logdata);
-		sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x %x\n", uRecvLength, bRecvMainBuffer[4],bRecvMainBuffer[5],bRecvMainBuffer[6],bRecvMainBuffer[7] );
-		PrintLog(logdata);
 
-		stTruckBedConfig.xRadiusPositive = (U32)bRecvMainBuffer[7] | (U32)bRecvMainBuffer[6]<<8 | (U32)bRecvMainBuffer[5]<<16 | (U32)bRecvMainBuffer[4]<<24;
-		stTruckBedConfig.xRadiusNegative = (U32)bRecvMainBuffer[11] | (U32)bRecvMainBuffer[10]<<8 | (U32)bRecvMainBuffer[9]<<16 | (U32)bRecvMainBuffer[8]<<24;
-		stTruckBedConfig.yDiamter = (U32)bRecvMainBuffer[15] | (U32)bRecvMainBuffer[14]<<8 | (U32)bRecvMainBuffer[13]<<16 | (U32)bRecvMainBuffer[12]<<24;
-		sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x\n", uRecvLength, stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter);
-		PrintLog(logdata);
+		// stTruckBedConfig.xRadiusPositive = (U32)bRecvMainBuffer[7] | (U32)bRecvMainBuffer[6]<<8 | (U32)bRecvMainBuffer[5]<<16 | (U32)bRecvMainBuffer[4]<<24;
+		// stTruckBedConfig.xRadiusNegative = (U32)bRecvMainBuffer[11] | (U32)bRecvMainBuffer[10]<<8 | (U32)bRecvMainBuffer[9]<<16 | (U32)bRecvMainBuffer[8]<<24;
+		// stTruckBedConfig.yDiamter = (U32)bRecvMainBuffer[15] | (U32)bRecvMainBuffer[14]<<8 | (U32)bRecvMainBuffer[13]<<16 | (U32)bRecvMainBuffer[12]<<24;
+		// sprintf(logdata, "[Main][[Receive] Truck Bed Calibration (Length = %d) : %x %x %x\n", uRecvLength, stTruckBedConfig.xRadiusPositive, stTruckBedConfig.xRadiusNegative, stTruckBedConfig.yDiamter);
+		// PrintLog(logdata);
 
 		PrintLog("[Radar][Send] SET_TRUCK_BED_CONFIG\n");
 		Push_COMM_Data( sizeof(stTruckBedConfig), SET_TRUCK_BED_CONFIG, (U08*)&stTruckBedConfig);
